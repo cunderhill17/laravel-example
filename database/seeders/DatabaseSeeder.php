@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
 
         // Database\Seeders\BookSeeder
         $this->call([
-            Bookseeder::class
+            AuthorSeeder::class,
+            BookSeeder::class,
         ]);
     }
 }
