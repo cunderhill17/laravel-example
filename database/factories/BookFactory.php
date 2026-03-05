@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Author;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,7 @@ class BookFactory extends Factory
         return [
             //newer laravel versions use fake() instead of $this->faker 
             'title' => $this->faker->name,
-            'author_id' => null,
+            'author_id' => Author::inRandomOrder()->first()->id,
             'publisher_id' => null,
         ];
     }
