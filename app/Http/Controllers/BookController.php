@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Author;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,7 @@ class BookController extends Controller
             //$booksQuery->whereAuthorId($authorId); <-- also valid
             $booksQuery->where('author_id', '=', $authorId);
         }
+        $booksQuery->with('author');
         $books= $booksQuery->get();
         return $books;
     }
@@ -27,8 +29,13 @@ class BookController extends Controller
     //Dependency Injection ??
     public function show(Book $book)
     {
+
+        //$author = $book->author;
+
         // $book = Book::find($id);
         //dd($book);
+
+        $book->load('author');
         return $book;
     }
 }
