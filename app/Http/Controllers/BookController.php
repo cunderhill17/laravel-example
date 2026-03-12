@@ -8,10 +8,20 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    public function index()
+    /**
+     * Return a list of Books
+     */
+    public function index(Request $request)
     {
-        $books = Book::all()->toArray();
-        return json_encode($books);
+        $authorId = $request->get('author_id', null);
+
+        $booksQuery = Book::query();
+        if ($authorId !== null) {
+            //$booksQuery->whereAuthorId($authorId); <-- also valid
+            $booksQuery->where('author_id', '=', $authorId);
+        }
+        $books= $booksQuery->get();
+        return $books;
     }
 
     //Dependency Injection ??
